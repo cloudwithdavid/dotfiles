@@ -1,16 +1,16 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
-# ------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # 1. INTERACTIVE GUARD
-# ------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 case $- in
     *i*) ;;
       *) return;;
 esac
 
-# ------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # 2. SHELL OPTIONS & HISTORY MANAGEMENT
-# ------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # History retention
 HISTSIZE=10000
 HISTFILESIZE=20000
@@ -32,17 +32,30 @@ PROMPT_COMMAND='history -a; history -n'
 bind "set completion-ignore-case on"
 bind "set show-all-if-ambiguous on"
 
-# ------------------------------------------------------------
-# 3. ALIASES
-# ------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# 3. ALIASES & VARIABLES
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Navigation & System
 alias rc='source ~/.bashrc'
-
 alias cl='clear'
+alias cdp='cd -P'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias cdp='cd -P'
+
+# Archive Operations
+alias tarc='tar -czvf'  # Usage: tarc archive.tgz /path/to/folder # Create archive
+alias tarx='tar -xvf'   # Usage: tarx archive.tgz # Extract archive
+
+# Project paths
+projects="$HOME/wsl-projects"
+brc="$projects/git/dotfiles/bash/.bashrc"
+
+site="$projects/git/cwd-site"
+sitedemo="$projects/git/cwd-site-demo"
+llmconfig="$projects/git/llm-config"
+awsrestart="$projects/git/aws-restart"
+restartlabs="$projects/aws-restart-labs"
 
 
 # File Listing & Colors
@@ -59,7 +72,7 @@ alias lla='la -AFlh'
 alias la='ls -A'      
 alias l='ls -CF'      
 
-# Git Shortcuts
+# Git
 alias gs='git status'
 alias ga='git add'
 alias gaa='git add --all'
@@ -81,9 +94,9 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# ------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # 4. COMPLETION & TOOLS (FZF, ZOXIDE)
-# ------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Standard Bash Completion
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -111,9 +124,9 @@ if command -v zoxide >/dev/null 2>&1; then
     eval "$(zoxide init bash)"
 fi
 
-# ------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # 5. PS1: GIT-AWARE PROMPT CONFIGURATION
-# ------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if [ -f /usr/lib/git-core/git-sh-prompt ]; then
     source /usr/lib/git-core/git-sh-prompt
 elif [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
@@ -132,9 +145,9 @@ else
     PS1='\[\e[94m\]\W\[\e[97m\]\$ '
 fi
 
-# ------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # 6. HELPER FUNCTIONS
-# ------------------------------------------------------------
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 envnames() {
     env | cut -d= -f1
 }
